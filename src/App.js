@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import UpdateIdsForm from "./updateform";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 export default function App() {
   const [data1, setData1] = useState(null);
   const [data2, setData2] = useState(null);
@@ -15,70 +18,70 @@ export default function App() {
  
   useEffect(() => {
     const fetchData1 = () => {
-      fetch('http://localhost:5000/api/data1')
+      fetch(`${baseUrl}/api/data1`)
         .then(res => res.json())
         .then(data => setData1(data))
         .catch(error => console.error('Error fetching data1:', error));
     };
   
     const fetchData2 = () => {
-      fetch('http://localhost:5000/api/data2')
+      fetch(`${baseUrl}/api/data2`)
         .then(res => res.json())
         .then(data => setData2(data))
         .catch(error => console.error('Error fetching data2:', error));
     };
 
     const fetchData3 = () => {
-      fetch('http://localhost:5000/api/data3')
+      fetch(`${baseUrl}/api/data3`)
         .then(res => res.json())
         .then(data => setData3(data))
         .catch(error => console.error('Error fetching data2:', error));
     };
 
     const fetchData4 = () => {
-      fetch('http://localhost:5000/api/data4')
+      fetch(`${baseUrl}/api/data4`)
         .then(res => res.json())
         .then(data => setData4(data))
         .catch(error => console.error('Error fetching data2:', error));
     };
 
     const fetchData5 = () => {
-      fetch('http://localhost:5000/api/data5')
+      fetch(`${baseUrl}/api/data5`)
         .then(res => res.json())
         .then(data => setData5(data))
         .catch(error => console.error('Error fetching data2:', error));
     };
   
     const fetchProfile1 = () => {
-      fetch('http://localhost:5000/api/profile1')
+      fetch(`${baseUrl}/api/profile1`)
         .then(res => res.json())
         .then(data => setProfile1(data))
         .catch(error => console.error('Error fetching profile1:', error));
     };
   
     const fetchProfile2 = () => {
-      fetch('http://localhost:5000/api/profile2')
+      fetch(`${baseUrl}/api/profile2`)
         .then(res => res.json())
         .then(data => setProfile2(data))
         .catch(error => console.error('Error fetching profile2:', error));
     };
 
     const fetchProfile3 = () => {
-      fetch('http://localhost:5000/api/profile3')
+      fetch(`${baseUrl}/api/profile3`)
         .then(res => res.json())
         .then(data => setProfile3(data))
         .catch(error => console.error('Error fetching profile2:', error));
     };
   
     const fetchProfile4 = () => {
-      fetch('http://localhost:5000/api/profile4')
+      fetch(`${baseUrl}/api/profile4`)
         .then(res => res.json())
         .then(data => setProfile4(data))
         .catch(error => console.error('Error fetching profile2:', error));
     };
 
     const fetchProfile5 = () => {
-      fetch('http://localhost:5000/api/profile5')
+      fetch(`${baseUrl}/api/profile5`)
         .then(res => res.json())
         .then(data => setProfile5(data))
         .catch(error => console.error('Error fetching profile2:', error));
