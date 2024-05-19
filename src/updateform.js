@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -106,6 +107,7 @@ const UpdateIdsForm = () => {
         />
       </div>
       <button type="submit" className="submit-button">Save</button>
+      <Link to="/" className="button-link">Main App</Link>
       <style>
         {`
         .input-group {
@@ -138,6 +140,22 @@ const UpdateIdsForm = () => {
 
         .submit-button:hover {
           background-color: #45a049;
+        }
+        .button-link {
+          display: inline-block;
+          margin-top: 35px;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        
+        .button-link:hover {
+          background-color: #0056b3; /* Darker shade of blue on hover */
         }
         `}
       </style>
