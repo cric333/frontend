@@ -1,0 +1,51 @@
+/* Regular CSS */
+.prediction-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+}
+
+.prediction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.prediction-title {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.prediction-time {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.prediction-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prediction-info {
+  display: flex;
+  align-items: center;
+}
+
+.prediction-info span {
+  font-size: 0.875rem;
+}
+
+.user-prediction {
+  color: #38a169;
+  font-weight: bold;
+}
+
+.actual-outcome {
+  color: #4c51bf;
+  font-weight: bold;
+}
