@@ -6,6 +6,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const UpdateIdsForm = () => {
   const [formData, setFormData] = useState({
+    _id: '',
     id1: '',
     id2: '',
     id3: '',
@@ -21,8 +22,8 @@ const UpdateIdsForm = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${baseUrl}/retrieve`);
-      const { id1, id2, id3, id4, id5 } = response.data;
-      setFormData({ id1, id2, id3, id4, id5 });
+      const {_id, id1, id2, id3, id4, id5 } = response.data;
+      setFormData({ _id, id1, id2, id3, id4, id5 });
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
