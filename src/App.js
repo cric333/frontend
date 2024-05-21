@@ -3,8 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import UpdateIdsForm from "./updateform";
 import MainApp from "./dataComponemt";
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
-
 export default function App() {
  
   return (
