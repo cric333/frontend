@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from 'react-router-dom';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-export default function MainApp() {
+export default function CricApp () {
   const [data1, setData1] = useState(null);
   const [data2, setData2] = useState(null);
   const [data3, setData3] = useState(null);
@@ -125,14 +125,18 @@ export default function MainApp() {
 
   return (
     <>
-      <Link to="/form" className="button-link">Profiles</Link>
-      <Link to="/cricket" className="button-link">Cricket</Link>
+         <Link to="/form" className="button-link">Profiles</Link>
+         <Link to="/" className="button-link">Main app</Link>
         <div className="flex-container">
         <DataComponent data={data1} profile={profile1} />
         <DataComponent data={data2} profile={profile2} />
         <DataComponent data={data3} profile={profile3} />
         <DataComponent data={data4} profile={profile4} />
         <DataComponent data={data5} profile={profile5} />
+        <DataComponent data={data1} profile={profile1} />
+        <DataComponent data={data1} profile={profile1} />
+        <DataComponent data={data1} profile={profile1} />
+        <DataComponent data={data1} profile={profile1} />
         </div>
         <style jsx>{`
         .flex-container {
@@ -243,10 +247,13 @@ export default function MainApp() {
         flex-direction: column;
         font-weight: 400;
         /* 80px, 39px, 47px reduced by 25% */
-        padding-top: 20px;
-        padding-right: 20px;
-        padding-bottom: 20px;
-        padding-left: 35px;
+        padding-top: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+        flex-basis: auto; /* or any other value you want */
+        /* Prevent flex items from shrinking */
+        flex-shrink: 0;
     }
     @media (max-width: 991px) {
         .div {
@@ -373,10 +380,10 @@ export default function MainApp() {
   }
   .div-12 {
       display: flex;
-      gap: 10px; /* 20px reduced by 25% */
+      gap: 5px; /* 20px reduced by 25% */
       font-size: 12px; /* 20px reduced by 25% */
       color: #2d2d34;
-      margin-bottom: 9px; 
+      margin-bottom: 5px; 
   }
   @media (max-width: 991px) {
       .div-12 {
