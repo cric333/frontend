@@ -126,7 +126,6 @@ export default function MainApp() {
   return (
     <>
       <Link to="/form" className="button-link">Profiles</Link>
-      <Link to="/cricket" className="button-link">Cricket</Link>
         <div className="flex-container">
         <DataComponent data={data1} profile={profile1} />
         <DataComponent data={data2} profile={profile2} />
