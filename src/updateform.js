@@ -28,9 +28,13 @@ const UpdateIdsForm = () => {
     }
   };
 
+  const extractIdFromLink = (link) => {
+    const match = link.match(/id=(\d+)/);
+    return match ? match[1] : null;
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: extractIdFromLink(value) });
   };
 
   const handleSubmit = async (e) => {
@@ -44,42 +48,63 @@ const UpdateIdsForm = () => {
     }
   };
 
-  const addInputField = () => {
-    const newKey = `id${Object.keys(formData).length}`;
-    setFormData({ ...formData, [newKey]: '' });
-  };
-
-  const removeInputField = (keyToRemove) => {
-    const newFormData = { ...formData };
-    delete newFormData[keyToRemove];
-    setFormData(newFormData);
-  };
-
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: '300px', margin: 'auto' }}>
-      {Object.keys(formData).map((key, index) => {
-        if (key !== '_id') {
-          return (
-            <div key={index} className="input-group">
-              <input
-                type="text"
-                name={key}
-                value={formData[key]}
-                onChange={handleChange}
-                style={{ fontSize: '16px' }}
-                placeholder={`Enter link ${key}`}
-              />
-              {index > 4 ? (
-                <button type="button" onClick={() => removeInputField(key)}>Remove</button>
-              ) : null}
-            </div>
-          );
-        }
-        return null;
-      })}
-      {Object.keys(formData).length < 10 ? (
-        <button type="button" className="submit-button" onClick={addInputField}>Add</button>
-      ) : null}
+    <div className="input-group">
+        <input
+          type="text"
+          id="id1"
+          name="id1"
+          value={formData.id1}
+          onChange={handleChange}
+          style={{ fontSize: '16px' }}
+          placeholder="Enter link to profile"
+        />
+      </div>
+      <div className="input-group">
+        <input
+          type="text"
+          id="id2"
+          name="id2"
+          value={formData.id2}
+          onChange={handleChange}
+          style={{ fontSize: '16px' }}
+          placeholder="Enter link to profile"
+        />
+      </div>
+      <div className="input-group">
+        <input
+          type="text"
+          id="id3"
+          name="id3"
+          value={formData.id3}
+          onChange={handleChange}
+          style={{ fontSize: '16px' }}
+          placeholder="Enter link to profile"
+        />
+      </div>
+      <div className="input-group">
+        <input
+          type="text"
+          id="id4"
+          name="id4"
+          value={formData.id4}
+          onChange={handleChange}
+          style={{ fontSize: '16px' }}
+          placeholder="Enter link to profile"
+        />
+      </div>
+      <div className="input-group">
+        <input
+          type="text"
+          id="id5"
+          name="id5"
+          value={formData.id5}
+          onChange={handleChange}
+          style={{ fontSize: '16px' }}
+          placeholder="Enter link to profile"
+        />
+      </div>
       <button type="submit" className="submit-button">Save</button>
       <Link to="/" className="button-link">Main App</Link>
       <style>

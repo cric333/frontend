@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from 'react-router-dom';
-import axios from 'axios';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export default function MainApp() {
@@ -14,156 +13,181 @@ export default function MainApp() {
   const [profile3, setProfile3] = useState(null);
   const [profile4, setProfile4] = useState(null);
   const [profile5, setProfile5] = useState(null);
-  const [formData, setFormData] = useState(null);
-
+ 
   useEffect(() => {
-    const fetchData = async() => {
-      const response = await axios.get(`${baseUrl}/retrieve`);
-      setFormData(response.data);
-      const { _id, ...ids } = response.data;
-      const idsArray = Object.values(ids);
-      for (let i = 0; i < idsArray.length; i++) {
-        try{
-      const response = await axios.get(`${baseUrl}/api/data/${idsArray[i]}`);
-        switch (i) {
-          case 0:
-            setData1(response.data);
-            break;
-          case 1:
-            setData2(response.data);
-            break;
-          case 2:
-            setData3(response.data);
-            break;
-          case 3:
-            setData4(response.data);
-            break;
-          case 4:
-            setData5(response.data);
-            break;
-          default:
-            break;
-        }
-      }
-      catch{console.error('Error fetching profile2:');}        
+    const fetchData1 = () => {
+      fetch(`${baseUrl}/api/data1`)
+        .then(res => res.json())
+        .then(data => setData1(data))
+        .catch(error => console.error('Error fetching data1:', error));
     };
-  }
-
-  const fetchProfile = async() => {
-    const response = await axios.get(`${baseUrl}/retrieve`);
-    setFormData(response.data);
-    const { _id, ...ids } = response.data;
-    const idsArray = Object.values(ids);
-    for (let i = 0; i < idsArray.length; i++) {
-      try{
-    const response = await axios.get(`${baseUrl}/api/profile/${idsArray[i]}`);
-      switch (i) {
-        case 0:
-          setProfile1(response.data);
-          break;
-        case 1:
-          setProfile2(response.data);
-          break;
-        case 2:
-          setProfile3(response.data);
-          break;
-        case 3:
-          setProfile4(response.data);
-          break;
-        case 4:
-          setProfile5(response.data);
-          break;
-        default:
-          break;
-      }
-    }
-    catch{console.error('Error fetching profile2:');}        
-  };
-  }
-  fetchProfile();
-  fetchData();
   
-  const dataRefreshInterval = setInterval(() => {
-    fetchData();
-  }, 10000);
+    const fetchData2 = () => {
+      fetch(`${baseUrl}/api/data2`)
+        .then(res => res.json())
+        .then(data => setData2(data))
+        .catch(error => console.error('Error fetching data2:', error));
+    };
 
-  // Set interval for profile refresh every one hour
-  const profileRefreshInterval = setInterval(() => {
-    fetchProfile();
-  }, 3600000);
+    const fetchData3 = () => {
+      fetch(`${baseUrl}/api/data3`)
+        .then(res => res.json())
+        .then(data => setData3(data))
+        .catch(error => console.error('Error fetching data2:', error));
+    };
 
-  // Cleanup intervals on component unmount
-  return () => {
-    clearInterval(dataRefreshInterval);
-    clearInterval(profileRefreshInterval);
-  };
+    const fetchData4 = () => {
+      fetch(`${baseUrl}/api/data4`)
+        .then(res => res.json())
+        .then(data => setData4(data))
+        .catch(error => console.error('Error fetching data2:', error));
+    };
+
+    const fetchData5 = () => {
+      fetch(`${baseUrl}/api/data5`)
+        .then(res => res.json())
+        .then(data => setData5(data))
+        .catch(error => console.error('Error fetching data2:', error));
+    };
+  
+    const fetchProfile1 = () => {
+      fetch(`${baseUrl}/api/profile1`)
+        .then(res => res.json())
+        .then(data => setProfile1(data))
+        .catch(error => console.error('Error fetching profile1:', error));
+    };
+  
+    const fetchProfile2 = () => {
+      fetch(`${baseUrl}/api/profile2`)
+        .then(res => res.json())
+        .then(data => setProfile2(data))
+        .catch(error => console.error('Error fetching profile2:', error));
+    };
+
+    const fetchProfile3 = () => {
+      fetch(`${baseUrl}/api/profile3`)
+        .then(res => res.json())
+        .then(data => setProfile3(data))
+        .catch(error => console.error('Error fetching profile2:', error));
+    };
+  
+    const fetchProfile4 = () => {
+      fetch(`${baseUrl}/api/profile4`)
+        .then(res => res.json())
+        .then(data => setProfile4(data))
+        .catch(error => console.error('Error fetching profile2:', error));
+    };
+
+    const fetchProfile5 = () => {
+      fetch(`${baseUrl}/api/profile5`)
+        .then(res => res.json())
+        .then(data => setProfile5(data))
+        .catch(error => console.error('Error fetching profile2:', error));
+    };
+    // Fetch data initially
+    fetchData1();
+    fetchData2();
+    fetchData3();
+    fetchData4();
+    fetchData5();
+
+    fetchProfile1();
+    fetchProfile2();
+    fetchProfile3();
+    fetchProfile4();
+    fetchProfile5();
+  
+    // Set interval for data refresh every 10 seconds
+    const dataRefreshInterval = setInterval(() => {
+      fetchData1();
+      fetchData2();
+      fetchData3();
+      fetchData4();
+      fetchData5();
+    }, 10000);
+  
+    // Set interval for profile refresh every one hour
+    const profileRefreshInterval = setInterval(() => {
+      fetchProfile1();
+      fetchProfile2();
+      fetchProfile3();
+      fetchProfile4();
+      fetchProfile5();
+    }, 3600000);
+  
+    // Cleanup intervals on component unmount
+    return () => {
+      clearInterval(dataRefreshInterval);
+      clearInterval(profileRefreshInterval);
+    };
   }, []);
-    return (
-      <>
-        <Link to="/form" className="button-link">Profiles</Link>
-        <Link to="/" className="button-link">Main app</Link>
-        <Link to="/cricket" className="button-link">Cricket</Link>
-          <div className="flex-container">
-          <DataComponent data={data1} profile={profile1} />
-          <DataComponent data={data2} profile={profile2} />
-          <DataComponent data={data3} profile={profile3} />
-          <DataComponent data={data4} profile={profile4} />
-          <DataComponent data={data5} profile={profile5} />
-          </div>
-          <style jsx>{`
-          .flex-container {
-            display: flex;
-            justify-content: space-between;
-            max-width: 2000px;
-            margin-top: 0 px;
-            margin-right: auto;
-            margin-bottom: auto;
-            margin-left: auto;
-            padding-top: 1px;
-            padding-right: 10px;
-            padding-bottom: 10px;
-            padding-left: 10px;
-          }
   
+
+  return (
+    <>
+      <Link to="/form" className="button-link">Profiles</Link>
+      <Link to="/" className="button-link">Main app</Link>
+        <div className="flex-container">
+        <DataComponent data={data1} profile={profile1} />
+        <DataComponent data={data2} profile={profile2} />
+        <DataComponent data={data3} profile={profile3} />
+        <DataComponent data={data4} profile={profile4} />
+        <DataComponent data={data5} profile={profile5} />
+        </div>
+        <style jsx>{`
+        .flex-container {
+          display: flex;
+          justify-content: space-between;
+          max-width: 2000px;
+          margin-top: 0 px;
+          margin-right: auto;
+          margin-bottom: auto;
+          margin-left: auto;
+          padding-top: 1px;
+          padding-right: 10px;
+          padding-bottom: 10px;
+          padding-left: 10px;
+        }
+
+        .flex-box {
+          flex: 0 0 calc(5% - 10px); /* Decreased by 50% */
+          background-color: #fff;
+          border-radius: 10px;
+          padding: 10px;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        @media (max-width: 768px) {
           .flex-box {
-            flex: 0 0 calc(5% - 10px); /* Decreased by 50% */
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            flex: 0 0 calc(12.5% - 10px); /* Adjust accordingly */
           }
-  
-          @media (max-width: 768px) {
-            .flex-box {
-              flex: 0 0 calc(12.5% - 10px); /* Adjust accordingly */
-            }
+        }
+
+        @media (max-width: 480px) {
+          .flex-box {
+            flex: 0 0 calc(25% - 10px); /* Adjust accordingly */
           }
-  
-          @media (max-width: 480px) {
-            .flex-box {
-              flex: 0 0 calc(25% - 10px); /* Adjust accordingly */
-            }
-          }
-          .button-link {
-            display: inline-flex;
-            width: auto;
-            padding: 7.5px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-          }
-          
-          .button-link:hover {
-            background-color: #0056b3; /* Darker shade of blue on hover */
-          }
-        `}</style>
-        </>
-    );
-  }
+        }
+        .button-link {
+          display: inline-flex;
+          width: auto;
+          padding: 7.5px;
+          background-color: #007bff;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        
+        .button-link:hover {
+          background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+      `}</style>
+      </>
+  );
+}
 
  function  DataComponent (props) {
   return (
