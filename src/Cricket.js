@@ -1,142 +1,53 @@
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export default function CricApp () {
-  const [data1, setData1] = useState(null);
-  const [data2, setData2] = useState(null);
-  const [data3, setData3] = useState(null);
-  const [data4, setData4] = useState(null);
-  const [data5, setData5] = useState(null);
-  const [profile1, setProfile1] = useState(null);
-  const [profile2, setProfile2] = useState(null);
-  const [profile3, setProfile3] = useState(null);
-  const [profile4, setProfile4] = useState(null);
-  const [profile5, setProfile5] = useState(null);
- 
+  const n = 100;
+  const [data, setData] = useState(Array(n).fill(null));
+  const [profile, setProfile] = useState(Array(n).fill(null));
+
   useEffect(() => {
-    const fetchData1 = () => {
-      fetch(`${baseUrl}/api/data1`)
-        .then(res => res.json())
-        .then(data => setData1(data))
-        .catch(error => console.error('Error fetching data1:', error));
-    };
-  
-    const fetchData2 = () => {
-      fetch(`${baseUrl}/api/data2`)
-        .then(res => res.json())
-        .then(data => setData2(data))
-        .catch(error => console.error('Error fetching data2:', error));
+    const fetchDataAndProfile = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/retrieve`);
+        const { _id, ...ids } = response.data;
+        const idsArray = Object.values(ids);
+        
+        const dataPromises = idsArray.map(async id => {
+          const response = await axios.get(`${baseUrl}/api/data/${id}`);
+          return response.data;
+        });
+
+        const profilePromises = idsArray.map(async id => {
+          const response = await axios.get(`${baseUrl}/api/profile/${id}`);
+          return response.data;
+        });
+
+        const resolvedData = await Promise.all(dataPromises);
+        const resolvedProfile = await Promise.all(profilePromises);
+
+        setData(resolvedData);
+        setProfile(resolvedProfile);
+      } catch (error) {
+        console.error(`Error fetching data and profile: ${error}`);
+      }
     };
 
-    const fetchData3 = () => {
-      fetch(`${baseUrl}/api/data3`)
-        .then(res => res.json())
-        .then(data => setData3(data))
-        .catch(error => console.error('Error fetching data2:', error));
-    };
+    fetchDataAndProfile();
 
-    const fetchData4 = () => {
-      fetch(`${baseUrl}/api/data4`)
-        .then(res => res.json())
-        .then(data => setData4(data))
-        .catch(error => console.error('Error fetching data2:', error));
-    };
-
-    const fetchData5 = () => {
-      fetch(`${baseUrl}/api/data5`)
-        .then(res => res.json())
-        .then(data => setData5(data))
-        .catch(error => console.error('Error fetching data2:', error));
-    };
-  
-    const fetchProfile1 = () => {
-      fetch(`${baseUrl}/api/profile1`)
-        .then(res => res.json())
-        .then(data => setProfile1(data))
-        .catch(error => console.error('Error fetching profile1:', error));
-    };
-  
-    const fetchProfile2 = () => {
-      fetch(`${baseUrl}/api/profile2`)
-        .then(res => res.json())
-        .then(data => setProfile2(data))
-        .catch(error => console.error('Error fetching profile2:', error));
-    };
-
-    const fetchProfile3 = () => {
-      fetch(`${baseUrl}/api/profile3`)
-        .then(res => res.json())
-        .then(data => setProfile3(data))
-        .catch(error => console.error('Error fetching profile2:', error));
-    };
-  
-    const fetchProfile4 = () => {
-      fetch(`${baseUrl}/api/profile4`)
-        .then(res => res.json())
-        .then(data => setProfile4(data))
-        .catch(error => console.error('Error fetching profile2:', error));
-    };
-
-    const fetchProfile5 = () => {
-      fetch(`${baseUrl}/api/profile5`)
-        .then(res => res.json())
-        .then(data => setProfile5(data))
-        .catch(error => console.error('Error fetching profile2:', error));
-    };
-    // Fetch data initially
-    fetchData1();
-    fetchData2();
-    fetchData3();
-    fetchData4();
-    fetchData5();
-
-    fetchProfile1();
-    fetchProfile2();
-    fetchProfile3();
-    fetchProfile4();
-    fetchProfile5();
-  
-    // Set interval for data refresh every 10 seconds
-    const dataRefreshInterval = setInterval(() => {
-      fetchData1();
-      fetchData2();
-      fetchData3();
-      fetchData4();
-      fetchData5();
-    }, 10000);
-  
-    // Set interval for profile refresh every one hour
-    const profileRefreshInterval = setInterval(() => {
-      fetchProfile1();
-      fetchProfile2();
-      fetchProfile3();
-      fetchProfile4();
-      fetchProfile5();
-    }, 3600000);
-  
-    // Cleanup intervals on component unmount
-    return () => {
-      clearInterval(dataRefreshInterval);
-      clearInterval(profileRefreshInterval);
-    };
+    const refreshInterval = setInterval(fetchDataAndProfile, 8000);
+    return () => clearInterval(refreshInterval);
   }, []);
-  
-
   return (
     <>
          <Link to="/form" className="button-link">Profiles</Link>
          <Link to="/" className="button-link">Main app</Link>
         <div className="flex-container">
-        <DataComponent data={data1} profile={profile1} />
-        <DataComponent data={data2} profile={profile2} />
-        <DataComponent data={data3} profile={profile3} />
-        <DataComponent data={data4} profile={profile4} />
-        <DataComponent data={data5} profile={profile5} />
-        <DataComponent data={data1} profile={profile1} />
-        <DataComponent data={data1} profile={profile1} />
-        <DataComponent data={data1} profile={profile1} />
-        <DataComponent data={data1} profile={profile1} />
+        {data.map((dataItem, index) => (
+          <DataComponent key={index} data={dataItem} profile={profile[index]} />
+        ))}
         </div>
         <style jsx>{`
         .flex-container {
