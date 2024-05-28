@@ -21,7 +21,7 @@ const UpdateIdsForm = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/retrieve`);
+      const response = await axios.get(`${baseUrl}/retrieve1`);
       setFormData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error.message);
@@ -41,7 +41,7 @@ const UpdateIdsForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post(`${baseUrl}/store`, formData);
+      await axios.post(`${baseUrl}/store1`, formData);
       console.log('Data stored successfully');
     } catch (error) {
       console.error('Error storing data:', error.message);
