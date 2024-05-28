@@ -251,7 +251,7 @@ export default function YoutubeApp() {
         padding-top: 20px;
         padding-right: 20px;
         padding-bottom: 20px;
-        padding-left: 35px;
+        padding-left: 20px;
     }
     @media (max-width: 991px) {
         .div {
