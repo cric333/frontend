@@ -125,12 +125,12 @@ export default function YoutubeApp() {
 
   return (
     <>
-      <Link to="/form" className="button-link">Profiles</Link>
-      <Link to="/" className="button-link">Main app</Link>
+      <Link to="/" className="button-link">---Main App---</Link>
+      <Link to="/cricket" className="button-link">---Cricket App---</Link>
+      <Link to="/youtube" className="button-link">---Youtube App---</Link>
+      <Link to="/form" className="button-link">Update Profiles</Link>
       <Link to="/updatecricket" className="button-link">Update Cricket</Link>
       <Link to="/updateyoutube" className="button-link">Update Youtube</Link>
-      <Link to="/cricket" className="button-link">Cricket</Link>
-      <Link to="/youtube" className="button-link">Youtube</Link>
         <div className="flex-container">
         <DataComponent data={data1} profile={profile1} />
         <DataComponent data={data2} profile={profile2} />
